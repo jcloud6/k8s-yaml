@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: init-container-test
+  namespace: ns-xing
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: init-container-test
+      annotations:
+    spec:
+      containers:
+        - name: helloworld
+          image: 10.6.0.10:5000/hello-world:latest
+      initContainers:
+        - name: init-sleep
+          image: 10.6.0.10:5000/centos7.3_tools:latest
+          command: ['sh', '-c', 'echo "waiting for init-job"; sleep 20']
