@@ -1,0 +1,17 @@
+# SPECIAL_LEVEL_SINGLE=very
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-pod-singlekey
+spec:
+  containers:
+    - name: test-container
+      image: busybox
+      command: ["/bin/sh","-c","env"]
+      env:
+        - name: SPECIAL_LEVEL_SINGLE
+          valueFrom:
+            configMapKeyRef:
+              name: special-config
+              key: SPECIAL_LEVEL
+  restartPolicy: Never
